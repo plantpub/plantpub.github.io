@@ -1,1 +1,197 @@
-plant
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<!--[if lt IE 7 ]>
+<html class="ie6" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 7 ]>
+<html class="ie7" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 8 ]>
+<html class="ie8" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9" lang="zh-cmn-Hans"><![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=2.0,maximum-scale=1,user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            margin: auto;
+            width: 96%;
+        }
+        #showBigPic {
+            -webkit-transition: all 0.36s;
+        }
+
+        #closeBigPic {
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .big_img_pan {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: #2d2d2d;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .showBigPic {
+            position: absolute;
+            top: 10%;
+
+            right: 10%;
+            bottom: 10%;
+            width: 80%;
+            height: 80%;
+            background: #f2f2f2;
+            border-radius: 20px;
+
+        }
+
+        .showBigPic img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .closeBigPic {
+            width: 40px;
+            height: 40px;
+            background: #f00;
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 20px;
+            -webkit-transition: all 0.36s;
+            transition: all 0.36s;
+            margin-top: -20px;
+            margin-right: -20px;
+        }
+
+        .closeBigPicClose {
+            width: 40px;
+            height: 40px;
+            background: #f00;
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 20px;
+            -webkit-transition: all 0.36s;
+            transition: all 0.36s;
+            margin-top: -20px;
+            margin-right: -20px;
+        }
+
+        .closeBigPicClosed {
+            width: 0px;
+            height: 0px;
+            background: #f00;
+            opacity: 0;
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 20px;
+            -webkit-transition: all 0.36s;
+            transition: all 0.36s;
+            margin-top: 0px;
+            margin-right: 0px;
+        }
+
+        .closeBigPic:after {
+            content: "X";
+            color: #fff;
+        }
+
+        .closeBigPic:hover:after {
+            content: "关闭";
+            color: #fff;
+        }
+
+        .closeBigPic:hover {
+            width: 80px;
+        }
+
+        .toout {
+            width: 0%;
+            height: 0%;
+            overflow: hidden;
+            top: 10%;
+            right: 10%;
+        }
+
+        .t {
+            background: none;
+        }
+
+        a img {
+            cursor: pointer;
+        }
+
+        .hide {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<img src="images/0.jpg" width="80" onclick="show_big_pic();">
+<img src="images/1.jpg" width="80" onclick="show_big_pic();">
+
+<div id="big_img_pan" class="big_img_pan hide">
+    <div id="showBigPic" class="showBigPic">
+        <img id="bigPic"/>
+    </div>
+    <div id="closeBigPic" class="closeBigPic" onclick="close_big_pic()"></div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    function show_big_pic() {
+        var e = window.event;
+        var url = e.target.src;
+        document.getElementById("bigPic").src = url;
+        document.getElementById("closeBigPic").setAttribute("class", "closeBigPic");
+        document.getElementById("showBigPic").setAttribute("class", "showBigPic");
+        document.getElementById("big_img_pan").setAttribute("class", "big_img_pan");
+    }
+    function close_big_pic() {
+        document.getElementById("showBigPic").setAttribute("class", "showBigPic toout");
+        document.getElementById("big_img_pan").setAttribute("class", "big_img_pan t");
+        setTimeout(function () {
+            var url = document.getElementById("bigPic").src;
+            document.getElementById("closeBigPic").style.backgroundImage = "url(" + url + ")";
+            document.getElementById("closeBigPic").setAttribute("class", "closeBigPicClose");
+            setTimeout(function () {
+                document.getElementById("closeBigPic").setAttribute("class", "closeBigPicClosed");
+                setTimeout(function () {
+                    document.getElementById("big_img_pan").setAttribute("class", "big_img_pan hide");
+                    document.getElementById("closeBigPic").style.backgroundImage = "none";
+                }, 200)
+            }, 500)
+        }, 200)
+    }
+</script>
+</body>
+</html>
