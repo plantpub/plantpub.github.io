@@ -12,11 +12,11 @@ var on_obj = null;
 var selected_obj = null;
 
 //触点颜色
-var selected_cp_point_color={
-    zs:"#ccc",
-    zx:"#ccc",
-    ys:"#ccc",
-    yx:"#ccc"
+var selected_cp_point_color = {
+    zs: "#ccc",
+    zx: "#ccc",
+    ys: "#ccc",
+    yx: "#ccc"
 };
 
 function _do_objs_in_and_after(in_fn, after_fn) {
@@ -160,10 +160,10 @@ window.onload = function () {
             //如果移动的时候，还按着左键。就是拖动
             if (selected_obj != null) {
                 //原始的上下左右（当前）
-                var zuobian=selected_obj.point.x;
-                var youbian=selected_obj.point.x+selected_obj.width;
-                var shangbian=selected_obj.point.y;
-                var xiabian=selected_obj.point.y+selected_obj.height;
+                var zuobian = selected_obj.point.x;
+                var youbian = selected_obj.point.x + selected_obj.width;
+                var shangbian = selected_obj.point.y;
+                var xiabian = selected_obj.point.y + selected_obj.height;
 
                 //如果有已经选择的对象，就拖动对象。
                 if (cp === "move") {
@@ -172,27 +172,38 @@ window.onload = function () {
                     selected_obj.point.y = at_y - cha_y;
                 }
 
+                if (cp === "zs") {
+                    //拖拽左上角
+                    selected_obj.point.x = at_x;
+                    selected_obj.point.y = at_y;
+                    selected_obj.width = youbian - selected_obj.point.x;
+                    selected_obj.height = xiabian - at_y;
 
-                if(cp==="zx"){
+
+                }
+
+                if (cp === "zx") {
                     //拖拽左下角
                     console.log("拖拽 左下角...")
                     selected_obj.point.x = at_x;
-                    selected_obj.width=youbian-selected_obj.point.x;
+                    selected_obj.width = youbian - selected_obj.point.x;
                     selected_obj.height = at_y - selected_obj.point.y;
                 }
-                if(cp==="yx"){
+                if (cp === "yx") {
                     //拖拽右下角
                     console.log("拖拽 右下角...")
                     selected_obj.width = at_x - selected_obj.point.x;
                     selected_obj.height = at_y - selected_obj.point.y;
                 }
-                if(cp==="ys"){
+                if (cp === "ys") {
                     //拖拽右上角
-                    /*
+
                     console.log("拖拽 右上角...")
                     selected_obj.width = at_x - selected_obj.point.x;
-                    selected_obj.height = at_y;
-                    */
+
+                    selected_obj.point.y = at_y;
+                    selected_obj.height = xiabian - at_y;
+
                 }
             }
         } else {
@@ -236,38 +247,38 @@ window.onload = function () {
                 if (selected_obj) {
                     //在4个触点内
                     //左上
-                    selected_cp_point_color={
-                        zs:"#ccc",
-                        zx:"#ccc",
-                        ys:"#ccc",
-                        yx:"#ccc"
+                    selected_cp_point_color = {
+                        zs: "#ccc",
+                        zx: "#ccc",
+                        ys: "#ccc",
+                        yx: "#ccc"
                     };
 
                     if (_is_in(obj.point.x - 4, obj.point.y - 4, 8, 8)) {
                         console.log("左上");
-                        cp="zs";
-                        selected_cp_point_color.zs="#f00";
+                        cp = "zs";
+                        selected_cp_point_color.zs = "#f00";
                         return "break";
                     }
                     //左下
                     if (_is_in(obj.point.x - 4, obj.point.y + obj.height - 4, 8, 8)) {
                         console.log("左下");
-                        cp="zx";
-                        selected_cp_point_color.zx="#f00";
+                        cp = "zx";
+                        selected_cp_point_color.zx = "#f00";
                         return "break";
                     }
                     //右上
                     if (_is_in(obj.point.x + obj.width - 4, obj.point.y - 4, 8, 8)) {
                         console.log("右上");
-                        cp="ys";
-                        selected_cp_point_color.ys="#f00";
+                        cp = "ys";
+                        selected_cp_point_color.ys = "#f00";
                         return "break";
                     }
                     //右下
                     if (_is_in(obj.point.x + obj.width - 4, obj.point.y + obj.height - 4, 8, 8)) {
                         console.log("右下");
-                        cp="yx";
-                        selected_cp_point_color.yx="#f00";
+                        cp = "yx";
+                        selected_cp_point_color.yx = "#f00";
                         return "break";
                     }
                 }
