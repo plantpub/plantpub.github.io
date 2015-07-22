@@ -117,15 +117,27 @@ function render() {
         renderObj(obj);
     }, function () {
         //循环渲染完毕
-        if (cp === "over") {
-            canvas.style.cursor = "pointer";
-        } else if (cp === "move") {
-            canvas.style.cursor = "move";
-        } else if (cp === "out") {
-            canvas.style.cursor = "";
-
-        } else {
-            canvas.style.cursor = "";
+        switch (cp) {
+            case "over":
+                canvas.style.cursor = "pointer";
+                break;
+            case "move":
+                canvas.style.cursor = "move";
+                break;
+            case "ys":
+                canvas.style.cursor = "ne-resize";
+                break;
+            case "zs":
+                canvas.style.cursor = "nw-resize";
+                break;
+            case "yx":
+                canvas.style.cursor = "se-resize";
+                break;
+            case "zx":
+                canvas.style.cursor = "sw-resize";
+                break;
+            default :
+                canvas.style.cursor = "";
         }
     });
 }
