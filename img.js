@@ -47,8 +47,15 @@ function select_obj(obj) {
         cp = "move";
 
         //选中对象的属性
-        document.getElementById("obj_point_x").setAttribute("value", obj.point.x);
-        document.getElementById("obj_point_y").setAttribute("value", obj.point.y);
+
+        //边框大小
+
+        document.getElementById("obj_border").value = obj.border;
+
+        //边框颜色
+        document.getElementById("obj_color_stroke").value = obj.color.stroke;
+        //填充颜色
+        document.getElementById("obj_color_fill").value = obj.color.fill;
 
 
     });
@@ -66,14 +73,16 @@ function un_select() {
 function renderObj(obj) {
     //渲染 obj
     if (obj.type === "rect") {
-        c.lineWidth = 2;
+        c.lineWidth = obj.border;
         c.strokeStyle = obj.color.stroke;
         c.fillStyle = obj.color.fill;
         //中心定位法
 
         c.beginPath();
         c.rect(obj.point.x, obj.point.y, obj.width, obj.height);
-        c.stroke();
+        if (obj.border > 0) {
+            c.stroke();
+        }
         c.fill();
         c.closePath();
     }
@@ -82,11 +91,14 @@ function renderObj(obj) {
         c.lineWidth = 2;
         c.strokeStyle = "#f00";
         c.strokeRect(obj.point.x, obj.point.y, obj.width, obj.height);
+        //c.strokeRect(obj.point.x-obj.border/2, obj.point.y-obj.border/2, obj.width+obj.border, obj.height+obj.border);
+
     }
     if (obj.select) {
         c.lineWidth = 2;
         c.strokeStyle = "#ccc";
         c.strokeRect(obj.point.x, obj.point.y, obj.width, obj.height);
+        //c.strokeRect(obj.point.x-obj.border/2, obj.point.y-obj.border/2, obj.width+obj.border, obj.height+obj.border);
         //绘制触点
 
         //左上
@@ -311,13 +323,24 @@ window.onload = function () {
         }
     }
     //bind attr
-    document.getElementById("obj_point_x").addEventListener("change", function () {
-        if (selected_obj != null) {
-            selected_obj.point.x = this.value;
+    //边框大小
+
+    document.getElementById("obj_border").addEventListener("change", function () {
+        if (selected_obj) {
+            selected_obj.border = parseInt(this.value);
         }
     });
-    document.getElementById("obj_point_y").addEventListener("change", function () {
-
+    //边框颜色
+    document.getElementById("obj_color_stroke").addEventListener("change", function () {
+        if (selected_obj) {
+            selected_obj.color.stroke = this.value;
+        }
+    });
+    //填充颜色
+    document.getElementById("obj_color_fill").addEventListener("change", function () {
+        if (selected_obj) {
+            selected_obj.color.fill = this.value;
+        }
     });
     //bind tools
     document.getElementById("make_a_rect").addEventListener("click", function () {
@@ -329,11 +352,16 @@ window.onload = function () {
             point: {x: 400, y: 300},
             width: 50,
             height: 50,
-            color: {fill: "#c57", stroke: "#000"},
+            border: 20,
+            color: {fill: "#f00000", stroke: "#000000"},
             text: "",
             name: "",
             zindex: z_index
         }
         objs.push(obj_random);
+    });
+    document.getElementById("toimg").addEventListener("click", function () {
+        var img = canvas.toDataURL();
+        window.open(img);
     });
 }
