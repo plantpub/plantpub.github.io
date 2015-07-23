@@ -4,31 +4,29 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        canvas{
+
+        canvas {
             margin: 0;
             padding: 0;
-            background: rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.05);
         }
     </style>
-    <script src="img.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="tools">
-        <button id="make_a_rect">make_a_rect</button>
-    </div>
-    <div id="attribute">
-        <input id="obj_id" type="text" />
-        <input id="obj_point_x" type="text" />
-        <input id="obj_point_y" type="text" />
-        <input id="obj_width" type="text" />
-        <input id="obj_height" type="text" />
-        <input id="obj_color_fill" type="text" />
-        <button>update</button>
-    </div>
+<canvas id="canvas"></canvas>
+<div id="tools">
+    <button id="make_a_rect">make_a_rect</button>
+</div>
+<div id="attribute">
+    <input id="obj_border" type="number"/>
+    <input id="obj_color_stroke" type="color"/>
+    <input id="obj_color_fill" type="color"/>
+</div>
+<button id="toimg">toImg</button>
 </body>
 </html>
